@@ -59,6 +59,7 @@ if __name__ == "__main__":
         robots=[2,20,10]
         tasks=[(1,1),(2,3),(3,1),(12,2),(31,20)]
         print(minimal_ham_path(6,6,tasks,robots))
+
         print(Graph_RSP_ILP.Optimize_Robot_Scheduling(range(1,m*n+1),grid_edges(m,n),tasks,robots))
     else:
         E= [edge for edge in grid_edges(sys.argv[1],sys.argv[2])]

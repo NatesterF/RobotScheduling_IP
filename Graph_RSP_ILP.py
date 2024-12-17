@@ -98,9 +98,11 @@ def Optimize_Robot_Scheduling(V,E,tasks,sv, verbose=0):
     m.setObjective(TS -1  ,GRB.MINIMIZE)
         
     m.setParam('OutputFlag', 0)
-    m . optimize ()
+    m.optimize()
+    print("OPTMISZED")
     m.write("RobotScheduling.lp")
-    if verbose:
+
+    if verbose and m.SolCount >=1 :
         for v in m . getVars ():
             print ( '%s %g ' % ( v . VarName , v . X ))
             print ( ' Obj : %g ' % m . ObjVal )
@@ -115,7 +117,9 @@ def Optimize_Robot_Scheduling(V,E,tasks,sv, verbose=0):
         
             schedule+="]"
         print(schedule,"}")
-    return(int(TS.X -1 ), schedule)
+        return(int(TS.X -1 ), schedule)
+    else:
+        return(float("inf"))
 
 if __name__=="__main__":
 
@@ -125,23 +129,23 @@ if __name__=="__main__":
 #        E=[(0,1),(0,3), (1,3),(1,4),(1,2),(3,4)]
 #        sv=[6,8]
         #f=open("test.txt","a")
-        for n in range(14,17):
-            V=[i for i in range(n)]
-            E=[(e_1,e_2) for (e_1,e_2) in binary_tree(n)]   
-            leaves=[i for i in range(list(neighbourhood(n-1,E))[0]+1,n)]
-            first_robot=2**(maths.floor((math.log(n+1,2))))-1
-            #E=[(e_1,e_2) for (e_1,e_2) in binary_tree(n)]   
-#            sv=[7,14]
+    #for n in range(14,17):
+    #        V=[i for i in range(n)]
+    #        E=[(e_1,e_2) for (e_1,e_2) in binary_tree(n)]   
+    #        leaves=[i for i in range(list(neighbourhood(n-1,E))[0]+1,n)]
+    #        first_robot=2**(maths.floor((math.log(n+1,2))))-1
+    #        #E=[(e_1,e_2) for (e_1,e_2) in binary_tree(n)]   
+#   #         sv=[7,14]
 
-            sv=[leaves[-1],leaves[-2]]
-            input_tasks=[(leaves[i],1) for i in range(len(leaves))]
+    #        sv=[leaves[-1],leaves[-2]]
+    #        input_tasks=[(leaves[i],1) for i in range(len(leaves))]
 
-            print(Optimize_Robot_Scheduling(V,E,input_tasks,sv,1))
-            if first_robot not in sv:
-                print(Optimize_Robot_Scheduling(V,E,input_tasks,[first_robot,leaves[-1]]))
-            else:
-                print(Optimize_Robot_Scheduling(V,E,input_tasks,[first_robot-1,leaves[-1]]))
-                    
+    #        print(Optimize_Robot_Scheduling(V,E,input_tasks,sv,1))
+    #        if first_robot not in sv:
+    #            print(Optimize_Robot_Scheduling(V,E,input_tasks,[first_robot,leaves[-1]]))
+    #        else:
+    #            print(Optimize_Robot_Scheduling(V,E,input_tasks,[first_robot-1,leaves[-1]]))
+    #                
             
         G = nx.Graph()
         G.add_edges_from(E)
