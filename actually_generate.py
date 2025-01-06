@@ -3,8 +3,8 @@ import time
 import Partition_Algorithm
 import robot_scheduling_ILP
 import itertools
-MIN_SIZE=14
-MAX_SIZE = 16
+MIN_SIZE=15
+MAX_SIZE = 20
 MIN_DURATION = 3
 MAX_DURATION = 20
 MAX_ROBOTS = 10
