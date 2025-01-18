@@ -1,15 +1,15 @@
 import csv
-import matplotlib.pyplot as plt
-import matplotlib
-matplotlib.rcParams.update({
-    "pgf.texsystem": "pdflatex",
-    'font.family': 'serif',
-    'text.usetex': True,
-    'pgf.rcfonts': False,
-})
+#import matplotlib.pyplot as plt
+#import matplotlib
+#matplotlib.rcParams.update({
+#    "pgf.texsystem": "pdflatex",
+#    'font.family': 'serif',
+#    'text.usetex': True,
+#    'pgf.rcfonts': False,
+#})
+#
 
-
-f = open('output.csv',newline='') 
+f = open('results/data_05_11_2024.csv',newline='')
 reader = csv.reader(f,delimiter=",", quotechar='\"')
 #n,k,tasks,robot_locations, Partition Algorithm timespan, Optimal timespan,PA runtime, Gurobi runtime
 averagesPA=[] #used to keep track of averagesPA for each numbers of robots
@@ -39,16 +39,16 @@ print(opt_times)
 pa_times = [averagesPA[m][k][0] for m in range(7) ]
 print(pa_times)
 
-plt.plot(range(1,8),opt_times,label="Gurobi Runtime")
-plt.plot(range(1,8),pa_times,label="Partition Algorithm Runtime")
-plt.yscale('log')
-
-plt.xlabel('number of tasks,m')
-plt.ylabel('Runtime (in seconds)')
-plt.title("Runtime comparison for k=2")
-
-plt.legend()
-#plt.savefig("runtime_k4.png")
-plt.show()
-
-
+#plt.plot(range(1,8),opt_times,label="Gurobi Runtime")
+#plt.plot(range(1,8),pa_times,label="Partition Algorithm Runtime")
+#plt.yscale('log')
+#
+#plt.xlabel('number of tasks,m')
+#plt.ylabel('Runtime (in seconds)')
+#plt.title("Runtime comparison for k=2")
+#
+#plt.legend()
+##plt.savefig("runtime_k4.png")
+#plt.show()
+#
+#

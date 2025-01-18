@@ -3,7 +3,7 @@ import time
 import Partition_Algorithm
 import robot_scheduling_ILP
 import itertools
-MIN_SIZE=15
+MIN_SIZE=10
 MAX_SIZE = 20
 MIN_DURATION = 3
 MAX_DURATION = 20
@@ -55,18 +55,21 @@ if __name__ == "__main__":
 
     n=MIN_SIZE
     while n <= MAX_DURATION:
-        if count<=1200:
+        if count<=1200*5000:
             for sum_of_durations in range(MIN_DURATION,MAX_DURATION):
                 for instance in generate_instances(n,sum_of_durations):
                     for k in range(2,min(MAX_ROBOTS,n)):
                         for locations_of_robots in itertools.combinations(range(len(instance)),k):
-                            if count>=(1200*50):
+                            if count>=(1200*5000):
                                 n+=1
                                 count=0
                                 break
-                            if count % 50 == 0:
+                            if count % 5000 == 0:
                                 task_locations = list(np.nonzero(instance)[0])
                                 tasks=[(task,int(instance[task])) for task in task_locations]
+                                if len(tasks) <= 2 or k > len(tasks)+2:
+                                    print("ERM",f"k={k}", tasks)
+                                    break
                                 init_time = time.time()         
                                 pa = Partition_Algorithm.Partition_Algorithm(instance,locations_of_robots)
                                 after_pa_time = time.time()
