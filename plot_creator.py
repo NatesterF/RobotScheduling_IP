@@ -9,7 +9,8 @@ import csv
 #})
 #
 
-f = open('results/data_05_11_2024.csv',newline='')
+#f = open('results/data_05_11_2024.csv',newline='')
+f=open('3_robots_6_vertices.csv')
 reader = csv.reader(f,delimiter=",", quotechar='\"')
 #n,k,tasks,robot_locations, Partition Algorithm timespan, Optimal timespan,PA runtime, Gurobi runtime
 averagesPA=[] #used to keep track of averagesPA for each numbers of robots

@@ -17,23 +17,23 @@ def neighbourhood(v,E): #Generates all vertices adjacent to v
             yield v_1
 
 
-def binary_tree(n):
-    for i in range(n):
-        if 2*i + 1 < n:
-            yield(i, 2*i+1)
-        if 2 * i + 2 < n:
-            yield(i, 2*i+2)
-    
-def grid_edges(n,m):
-    V=[i+1 for i in range(n*m)]
-    for i in range(1,n):
-        for j in range(m-1):
-            yield(i+(n*j),i+(n*j)+1) #horiz edges
-            yield(i+(n*j),i+(n*(j+1)))
-    for i in range(1,n):
-        yield(i+((m-1)*n),i+(n*(m-1))+1) #horiz edges
-    for j in range(m-1):
-            yield(n+(n*j),n+(n*(j+1)))
+#def binary_tree(n):
+#    for i in range(n):
+#        if 2*i + 1 < n:
+#            yield(i, 2*i+1)
+#        if 2 * i + 2 < n:
+#            yield(i, 2*i+2)
+#    
+#def grid_edges(n,m):
+#    V=[i+1 for i in range(n*m)]
+#    for i in range(1,n):
+#        for j in range(m-1):
+#            yield(i+(n*j),i+(n*j)+1) #horiz edges
+#            yield(i+(n*j),i+(n*(j+1)))
+#    for i in range(1,n):
+#        yield(i+((m-1)*n),i+(n*(m-1))+1) #horiz edges
+#    for j in range(m-1):
+#            yield(n+(n*j),n+(n*(j+1)))
 
 def Optimize_Robot_Scheduling(V,E,tasks,sv, verbose=0):
     n=len(V)
@@ -99,25 +99,26 @@ def Optimize_Robot_Scheduling(V,E,tasks,sv, verbose=0):
         
     m.setParam('OutputFlag', 0)
     m.optimize()
-    print("OPTMISZED")
     m.write("RobotScheduling.lp")
 
-    if verbose and m.SolCount >=1 :
-        for v in m . getVars ():
-            print ( '%s %g ' % ( v . VarName , v . X ))
-            print ( ' Obj : %g ' % m . ObjVal )
+    if  m.SolCount >=1 :
+        if verbose :
+            for v in m . getVars ():
+                print ( '%s %g ' % ( v . VarName , v . X ))
+                print ( ' Obj : %g ' % m . ObjVal )
    
-        schedule="{"
-        for r in range(len(sv)):
-            schedule+="\n["
-            for t in range(int(TS.X) ):
-                for v in range(n):
-                    if x[r,v,t].X == 1:
-                        schedule+=f"t{t}:{v},"
-        
-            schedule+="]"
-        print(schedule,"}")
-        return(int(TS.X -1 ), schedule)
+            schedule="{"
+            for r in range(len(sv)):
+                schedule+="\n["
+                for t in range(int(TS.X) ):
+                    for v in range(n):
+                        if x[r,v,t].X == 1:
+                            schedule+=f"t{t}:{v},"
+            
+                schedule+="]"
+            print(schedule,"}")
+            return(int(TS.X -1 ), schedule)
+        return int(TS.X -1)
     else:
         return(float("inf"))
 
